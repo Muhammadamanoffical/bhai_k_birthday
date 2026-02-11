@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Bhai 🎉</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #ffd700;
+    overflow-x: hidden;
+}
+
+
+/* Container */
+.container {
+    padding: 40px 20px;
+}
+
+/* Heading */
+h1 {
+    font-size: 3rem;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #fff; }
+    to { text-shadow: 0 0 25px yellow; }
+}
+
+/* Image */
+img {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    margin: 25px 0;
+    border: 6px solid white;
+    object-fit: cover;
+}
+
+/* Text */
+p {
+    max-width: 600px;
+    margin: auto;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Button */
+button {
+    margin-top: 25px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: white;
+    color: #ff4b91;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #ffe600;
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    margin-top: 40px;
+    padding: 15px;
+    font-size: 0.9rem;
+}
+
+/* Confetti Canvas */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    img {
+        width: 160px;
+        height: 160px;
+    }
+
+    p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+    <h1>🎉 Happy Birthday Bhai 🎂</h1>
+
+    <!-- Bhai ki photo yahan -->
+    <img src="./bhai1.jpeg" alt="My Bhai">
+
+    <p>
+        Dear Bhai ❤️ <br><br>  
+        Allah aapko hamesha khushi, sehat aur kamiyabi de.  
+        May all your dreams come true! 🎁🎈
+    </p>
+
+    <button onclick="playMusic()">Play Birthday Song 🎵</button>
+</div>
+
+<footer>
+    Made with ❤️ by Your Loving Sibling
+</footer>
+
+<!-- Music -->
+<audio id="song" src="./andriig-happy-birthday-471211.mp3"></audio>
+
+<script>
+// Play music
+function playMusic() {
+    document.getElementById("song").play();
+}
+
+// Confetti
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let confetti = [];
+
+for (let i = 0; i < 120; i++) {
+    confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 2,
+        color: "hsl(" + Math.random() * 360 + ",100%,50%)",
+        speed: Math.random() * 3 + 2
+    });
+}
+
+function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    confetti.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fillStyle = c.color;
+        ctx.fill();
+    });
+
+    updateConfetti();
+}
+
+function updateConfetti() {
+    confetti.forEach(c => {
+        c.y += c.speed;
+        if (c.y > canvas.height) {
+            c.y = -10;
+            c.x = Math.random() * canvas.width;
+        }
+    });
+}
+
+setInterval(drawConfetti, 20);
+</script>
+
+</body>
+</html>
